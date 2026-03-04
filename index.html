@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BETTER — Your money should work as hard as you do</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flyonui@2.4.1/flyonui.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          better: {
+            50: '#f0fdf4',
+            100: '#dcfce7',
+            200: '#bbf7d0',
+            300: '#86efac',
+            400: '#4ade80',
+            500: '#22c55e',
+            600: '#16a34a',
+            700: '#15803d',
+            800: '#166534',
+            900: '#14532d',
+          },
+          slate: {
+            850: '#1a2332',
+            950: '#0b1120',
+          }
+        },
+        fontFamily: {
+          display: ['Inter', 'system-ui', 'sans-serif'],
+          body: ['DM Sans', 'system-ui', 'sans-serif'],
+        }
+      }
+    }
+  }
+  </script>
+  <style>
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #fafcfa;
+      color: #1a2332;
+    }
+
+    /* Scroll animations */
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-animate].animate-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-animate-delay="1"] { transition-delay: 0.1s; }
+    [data-animate-delay="2"] { transition-delay: 0.2s; }
+    [data-animate-delay="3"] { transition-delay: 0.3s; }
+    [data-animate-delay="4"] { transition-delay: 0.4s; }
+
+    /* Floating nav blur */
+    .nav-float {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(250, 252, 250, 0.85);
+      border: 1px solid rgba(22, 163, 74, 0.1);
+    }
+
+    /* Counter animation */
+    .counter-value {
+      display: inline-block;
+    }
+
+    /* Smooth gradient on hero stats */
+    .stat-glow {
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.06) 0%, rgba(74, 222, 128, 0.04) 100%);
+      border: 1px solid rgba(22, 163, 74, 0.08);
+    }
+
+    /* Phone mockup inner glow */
+    .phone-screen-gradient {
+      background: linear-gradient(180deg, #16a34a 0%, #15803d 40%, #166534 100%);
+    }
+
+    /* Subtle background pattern for sections */
+    .dot-pattern {
+      background-image: radial-gradient(circle, #16a34a 0.5px, transparent 0.5px);
+      background-size: 32px 32px;
+      opacity: 0.03;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* Bento card hover */
+    .bento-card {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+    .bento-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(22, 163, 74, 0.08);
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    /* Green accent line */
+    .accent-line {
+      width: 40px;
+      height: 3px;
+      background: #22c55e;
+      border-radius: 2px;
+    }
+
+    /* Agent step connector line */
+    .step-line {
+      position: absolute;
+      left: 24px;
+      top: 48px;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #22c55e 0%, rgba(34, 197, 94, 0.1) 100%);
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- ============================================ -->
+  <!-- FLOATING PILL NAV -->
+  <!-- ============================================ -->
+  <nav class="fixed top-3 md:top-4 left-1/2 -translate-x-1/2 z-50 nav-float rounded-full px-1.5 md:px-2 py-1.5 md:py-2 flex items-center gap-1 shadow-lg shadow-black/[0.03]">
+    <a href="#" class="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-4 py-1.5 md:py-2">
+      <div class="w-6 h-6 md:w-7 md:h-7 rounded-lg bg-better-600 flex items-center justify-center shrink-0">
+        <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </div>
+      <span class="font-display font-bold text-slate-850 text-xs md:text-sm tracking-tight">BETTER</span>
+    </a>
+    <a href="#why" class="hidden md:block px-3 py-2 text-sm text-slate-600 hover:text-better-700 transition-colors rounded-full">Why we exist</a>
+    <a href="#how" class="hidden md:block px-3 py-2 text-sm text-slate-600 hover:text-better-700 transition-colors rounded-full">How it works</a>
+    <a href="#start" class="ml-0.5 md:ml-1 px-3.5 md:px-5 py-1.5 md:py-2 bg-better-600 hover:bg-better-700 text-white text-xs md:text-sm font-semibold rounded-full transition-colors whitespace-nowrap">Start free</a>
+  </nav>
+
+
+  <!-- ============================================ -->
+  <!-- HERO: Stats-Led — Numbers first, then headline -->
+  <!-- ============================================ -->
+  <section class="relative min-h-screen flex flex-col justify-center pt-24 pb-16 overflow-hidden">
+    <div class="dot-pattern"></div>
+    <div class="max-w-6xl mx-auto px-6 w-full relative">
+
+      <!-- Stats row first — the numbers speak -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 mb-10 md:mb-14 max-w-2xl mx-auto" data-animate>
+        <div class="stat-glow rounded-2xl px-4 py-4 md:px-6 md:py-5 text-center">
+          <div class="font-display font-extrabold text-2xl md:text-4xl text-better-700 counter-value" data-count="4.8">0</div>
+          <div class="text-xs md:text-sm text-slate-500 mt-1 font-medium">% avg. return</div>
+        </div>
+        <div class="stat-glow rounded-2xl px-4 py-4 md:px-6 md:py-5 text-center">
+          <div class="font-display font-extrabold text-2xl md:text-4xl text-better-700">0.01<span class="text-sm md:text-lg">%</span></div>
+          <div class="text-xs md:text-sm text-slate-500 mt-1 font-medium">our margin</div>
+        </div>
+        <div class="stat-glow rounded-2xl px-4 py-4 md:px-6 md:py-5 text-center">
+          <div class="font-display font-extrabold text-2xl md:text-4xl text-better-700 counter-value" data-count="6">0</div>
+          <div class="text-xs md:text-sm text-slate-500 mt-1 font-medium">min. to start</div>
+        </div>
+        <div class="stat-glow rounded-2xl px-4 py-4 md:px-6 md:py-5 text-center">
+          <div class="font-display font-extrabold text-2xl md:text-4xl text-better-700 counter-value" data-count="50">0</div>
+          <div class="text-xs md:text-sm text-slate-500 mt-1 font-medium">countries</div>
+        </div>
+      </div>
+
+      <!-- Main headline -->
+      <div class="text-center max-w-3xl mx-auto" data-animate data-animate-delay="1">
+        <h1 class="font-display font-extrabold text-4xl md:text-6xl lg:text-7xl text-slate-850 tracking-tight leading-[1.08]">
+          Your money should work<br class="hidden md:block">
+          <span class="text-better-600">as hard as you do.</span>
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-slate-500 max-w-xl mx-auto leading-relaxed font-body">
+          BETTER is the AI-powered savings and investment platform for entrepreneurs. We keep 0.01%. You keep the rest.
+        </p>
+        <div class="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#start" class="inline-block px-7 py-3 md:px-8 md:py-3.5 bg-better-600 hover:bg-better-700 text-white font-semibold rounded-full transition-all shadow-lg shadow-better-600/20 hover:shadow-better-600/30 text-sm md:text-base">
+            See how we work
+          </a>
+          <a href="#why" class="px-6 py-3.5 text-better-700 font-medium hover:text-better-800 transition-colors text-base flex items-center gap-2">
+            Why BETTER?
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- PROBLEM: The industry we're shaking up -->
+  <!-- ============================================ -->
+  <section id="why" class="py-20 md:py-28 relative">
+    <div class="max-w-4xl mx-auto px-6">
+      <div data-animate>
+        <div class="accent-line mb-6"></div>
+        <h2 class="font-display font-extrabold text-3xl md:text-4xl text-slate-850 tracking-tight leading-tight">
+          Your bank takes 50% of your returns.<br>And calls it a "service."
+        </h2>
+      </div>
+      <div class="mt-8 space-y-5" data-animate data-animate-delay="1">
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Right now, when you put money aside as a freelancer or small business owner, your bank gives you almost nothing in return. They take your deposits, invest them at 4-5% in the market — and pass on 1% to you if you're lucky. The rest? That's their margin.
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Nobody built a serious savings and investment platform for the 300 million micro-businesses worldwide. Banks won't — because small deposits on slim margins don't fit their cost model. We don't have their cost model.
+        </p>
+      </div>
+
+      <!-- Comparison: silent killer -->
+      <div class="mt-14 grid md:grid-cols-2 gap-6" data-animate data-animate-delay="2">
+        <div class="rounded-2xl border border-slate-200 bg-white p-7">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+            </div>
+            <span class="font-display font-bold text-slate-400 text-sm uppercase tracking-wider">Traditional bank</span>
+          </div>
+          <div class="font-display font-extrabold text-4xl text-slate-300">~1.0%</div>
+          <p class="text-sm text-slate-400 mt-2">Average savings rate for business accounts</p>
+        </div>
+        <div class="rounded-2xl border-2 border-better-500 bg-better-50/50 p-7">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-better-100 flex items-center justify-center">
+              <svg class="w-5 h-5 text-better-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </div>
+            <span class="font-display font-bold text-better-700 text-sm uppercase tracking-wider">BETTER</span>
+          </div>
+          <div class="font-display font-extrabold text-4xl text-better-700">4.8%</div>
+          <p class="text-sm text-better-600 mt-2">We pass the returns to you. We keep 0.01%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- SOLUTION: Bento Grid — What we do differently -->
+  <!-- ============================================ -->
+  <section class="py-20 md:py-28 relative overflow-hidden">
+    <div class="dot-pattern"></div>
+    <div class="max-w-6xl mx-auto px-6 relative">
+      <div class="text-center mb-14" data-animate>
+        <div class="accent-line mx-auto mb-6"></div>
+        <h2 class="font-display font-extrabold text-3xl md:text-4xl text-slate-850 tracking-tight">
+          What we do differently
+        </h2>
+        <p class="mt-4 text-lg text-slate-500 max-w-xl mx-auto">Three things that make BETTER impossible for traditional banks to copy.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+
+        <!-- Feature 1: Global scale -->
+        <div class="bento-card rounded-2xl bg-white border border-slate-100 p-8 md:col-span-2" data-animate data-animate-delay="1">
+          <div class="w-12 h-12 rounded-xl bg-better-100 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-better-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-850 mb-2">Global from day one</h3>
+          <p class="text-slate-500 leading-relaxed">We pool deposits from 50 countries into one global fund — giving micro-businesses the same investment power as a multinational. Scale is our unfair advantage.</p>
+        </div>
+
+        <!-- Feature 2: 0.01% margin -->
+        <div class="bento-card rounded-2xl bg-better-600 p-8 text-white" data-animate data-animate-delay="2">
+          <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl mb-2">1 basis point. That's it.</h3>
+          <p class="text-white/80 leading-relaxed">We survive on volume, not margin. 1 bp on billions beats 50 bp on millions — every time.</p>
+        </div>
+
+        <!-- Feature 3: AI agent -->
+        <div class="bento-card rounded-2xl bg-white border border-slate-100 p-8" data-animate data-animate-delay="3">
+          <div class="w-12 h-12 rounded-xl bg-better-100 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-better-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-850 mb-2">AI does the work</h3>
+          <p class="text-slate-500 leading-relaxed">Your BETTER Agent allocates, rebalances, and optimizes — so you don't have to think about it.</p>
+        </div>
+
+        <!-- Feature 4: No lock-in -->
+        <div class="bento-card rounded-2xl bg-white border border-slate-100 p-8 md:col-span-2" data-animate data-animate-delay="4">
+          <div class="flex items-start gap-6">
+            <div class="w-12 h-12 rounded-xl bg-better-100 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-better-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-xl text-slate-850 mb-2">No lock-in. Ever.</h3>
+              <p class="text-slate-500 leading-relaxed">Withdraw anytime, no penalties, no waiting periods. Your money is your money — we just make it work harder while it's here. Connected to your existing bank, not replacing it.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- PRODUCT SHOWCASE: Phone Mockup + Agent Steps -->
+  <!-- ============================================ -->
+  <section id="how" class="py-20 md:py-28 bg-white relative">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        <!-- Left: Phone mockup -->
+        <div class="flex justify-center order-2 lg:order-1" data-animate>
+          <div class="mockup-phone border-better-800">
+            <div class="mockup-phone-camera"></div>
+            <div class="mockup-phone-display">
+              <div class="phone-screen-gradient w-full h-full min-h-[480px] flex flex-col">
+                <!-- Fake app UI -->
+                <div class="px-5 pt-8 pb-4">
+                  <div class="flex items-center justify-between mb-8">
+                    <div>
+                      <p class="text-white/60 text-xs font-medium">Good morning, Sarah</p>
+                      <p class="text-white font-display font-bold text-lg">Your BETTER Agent</p>
+                    </div>
+                    <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </div>
+                  </div>
+
+                  <!-- Balance card -->
+                  <div class="bg-white/10 rounded-2xl p-5 backdrop-blur-sm mb-6">
+                    <p class="text-white/60 text-xs font-medium mb-1">Total balance</p>
+                    <p class="text-white font-display font-extrabold text-3xl">EUR 24,830</p>
+                    <div class="flex items-center gap-2 mt-2">
+                      <div class="px-2 py-0.5 bg-green-400/20 rounded-full">
+                        <span class="text-green-300 text-xs font-semibold">+4.8% return</span>
+                      </div>
+                      <span class="text-white/40 text-xs">this year</span>
+                    </div>
+                  </div>
+
+                  <!-- Agent activity -->
+                  <div class="space-y-3">
+                    <p class="text-white/50 text-[10px] font-semibold uppercase tracking-wider">Agent activity</p>
+                    <div class="bg-white/10 rounded-xl p-3.5 flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-lg bg-green-400/20 flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4 text-green-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-white text-xs font-medium">Rebalanced portfolio</p>
+                        <p class="text-white/40 text-[10px]">Moved EUR 2,100 to higher-yield fund</p>
+                      </div>
+                    </div>
+                    <div class="bg-white/10 rounded-xl p-3.5 flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-lg bg-green-400/20 flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4 text-green-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                      </div>
+                      <div>
+                        <p class="text-white text-xs font-medium">New opportunity found</p>
+                        <p class="text-white/40 text-[10px]">3-month bond at 5.1% — auto-allocated</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Steps -->
+        <div class="order-1 lg:order-2">
+          <div data-animate>
+            <div class="accent-line mb-6"></div>
+            <h2 class="font-display font-extrabold text-3xl md:text-4xl text-slate-850 tracking-tight leading-tight">
+              Your AI agent handles it all
+            </h2>
+            <p class="mt-4 text-lg text-slate-500 leading-relaxed">
+              Connect once. Your BETTER Agent takes it from there.
+            </p>
+          </div>
+
+          <div class="mt-10 space-y-8">
+            <!-- Step 1 -->
+            <div class="flex gap-5 relative" data-animate data-animate-delay="1">
+              <div class="relative">
+                <div class="w-12 h-12 rounded-xl bg-better-100 flex items-center justify-center shrink-0 z-10 relative">
+                  <span class="font-display font-bold text-better-700">1</span>
+                </div>
+                <div class="step-line"></div>
+              </div>
+              <div class="pb-6">
+                <h3 class="font-display font-bold text-lg text-slate-850">Connect your business account</h3>
+                <p class="text-slate-500 mt-1 leading-relaxed">Link your existing bank in 6 minutes. We don't replace your bank — we sit on top of it.</p>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="flex gap-5 relative" data-animate data-animate-delay="2">
+              <div class="relative">
+                <div class="w-12 h-12 rounded-xl bg-better-100 flex items-center justify-center shrink-0 z-10 relative">
+                  <span class="font-display font-bold text-better-700">2</span>
+                </div>
+                <div class="step-line"></div>
+              </div>
+              <div class="pb-6">
+                <h3 class="font-display font-bold text-lg text-slate-850">Your Agent scans and allocates</h3>
+                <p class="text-slate-500 mt-1 leading-relaxed">AI analyzes your cash flow, identifies idle money, and puts it to work in diversified global funds. Automatically.</p>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="flex gap-5 relative" data-animate data-animate-delay="3">
+              <div>
+                <div class="w-12 h-12 rounded-xl bg-better-600 flex items-center justify-center shrink-0 z-10 relative">
+                  <span class="font-display font-bold text-white">3</span>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-lg text-slate-850">Watch it grow. Withdraw anytime.</h3>
+                <p class="text-slate-500 mt-1 leading-relaxed">Real-time dashboard. Full transparency. No lock-in. Your Agent rebalances daily — you check in when you want.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- DANGER: Why existing players should be worried -->
+  <!-- ============================================ -->
+  <section class="py-20 md:py-28 relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-6">
+      <div data-animate>
+        <div class="accent-line mb-6"></div>
+        <h2 class="font-display font-extrabold text-3xl md:text-4xl text-slate-850 tracking-tight leading-tight max-w-2xl">
+          We don't need your margins to survive. That's why they can't compete.
+        </h2>
+      </div>
+
+      <div class="mt-12 space-y-5" data-animate data-animate-delay="1">
+        <!-- Bullet 1 -->
+        <div class="flex gap-4 items-start bg-white rounded-xl border border-slate-100 p-6">
+          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-slate-850">Matching our rate would cost a traditional bank 80% of their deposit revenue.</h3>
+            <p class="text-slate-500 mt-1">Their business model depends on that spread. Ours doesn't.</p>
+          </div>
+        </div>
+        <!-- Bullet 2 -->
+        <div class="flex gap-4 items-start bg-white rounded-xl border border-slate-100 p-6">
+          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-slate-850">We don't need a banking license in every country.</h3>
+            <p class="text-slate-500 mt-1">We partner with local banks and plug in. They spent decades building infrastructure we don't need to own.</p>
+          </div>
+        </div>
+        <!-- Bullet 3 -->
+        <div class="flex gap-4 items-start bg-white rounded-xl border border-slate-100 p-6">
+          <div class="w-10 h-10 rounded-lg bg-red-50 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-slate-850">300 million micro-businesses, and nobody's serving them at scale.</h3>
+            <p class="text-slate-500 mt-1">Banks see them as too small. We see the largest untapped deposit pool on the planet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- CUSTOMER: Built for growing entrepreneurs -->
+  <!-- ============================================ -->
+  <section class="py-20 md:py-28 bg-white relative">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        <!-- Left: image -->
+        <div data-animate>
+          <img
+            src="https://images.unsplash.com/photo-1556745753-b2904692b3cd?w=700&q=80"
+            alt="Entrepreneur working in a modern space"
+            class="rounded-2xl w-full object-cover aspect-[4/3] shadow-lg"
+          >
+        </div>
+
+        <!-- Right: content -->
+        <div data-animate data-animate-delay="1">
+          <div class="accent-line mb-6"></div>
+          <h2 class="font-display font-extrabold text-3xl md:text-4xl text-slate-850 tracking-tight leading-tight">
+            Built for the ones who build.
+          </h2>
+          <p class="mt-5 text-lg text-slate-500 leading-relaxed">
+            Freelancers, solo founders, micro-businesses with 1-10 people. You're growing a company — you shouldn't need to become a financial analyst on the side.
+          </p>
+
+          <!-- Testimonial -->
+          <div class="mt-10 border-l-2 border-better-400 pl-6">
+            <p class="text-slate-700 text-lg leading-relaxed italic">
+              "I had EUR 40K sitting in a business account earning 0.3%. BETTER moved it to a diversified fund, and I didn't have to do a thing. That's four extra months of runway I didn't know I had."
+            </p>
+            <div class="mt-4 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-better-100 flex items-center justify-center">
+                <span class="font-display font-bold text-better-700 text-sm">SV</span>
+              </div>
+              <div>
+                <p class="font-display font-semibold text-slate-850 text-sm">Sarah Verhoeven</p>
+                <p class="text-slate-400 text-sm">Freelance UX designer, Amsterdam</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- CTA: Inline form -->
+  <!-- ============================================ -->
+  <section id="start" class="py-20 md:py-28 relative overflow-hidden">
+    <div class="dot-pattern"></div>
+    <div class="max-w-2xl mx-auto px-6 text-center relative">
+      <div data-animate>
+        <h2 class="font-display font-extrabold text-3xl md:text-5xl text-slate-850 tracking-tight leading-tight">
+          Your money's been sitting still long enough.
+        </h2>
+        <p class="mt-5 text-lg text-slate-500">
+          Connect in 6 minutes. No paperwork. No lock-in. Free to use.
+        </p>
+      </div>
+
+      <!-- Inline email form -->
+      <div class="mt-10 flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto" data-animate data-animate-delay="1">
+        <input
+          type="email"
+          placeholder="Your business email"
+          class="w-full px-5 py-3.5 rounded-full border border-slate-200 bg-white text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-better-500 focus:border-transparent text-base"
+        >
+        <button class="shrink-0 px-7 py-3.5 bg-better-600 hover:bg-better-700 text-white font-semibold rounded-full transition-all shadow-lg shadow-better-600/20 text-base whitespace-nowrap">
+          Start free
+        </button>
+      </div>
+
+      <p class="mt-4 text-sm text-slate-400" data-animate data-animate-delay="2">No credit card required. Regulated in the EU. Your funds are always yours.</p>
+
+      <!-- Trust signals -->
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-6 text-slate-400" data-animate data-animate-delay="3">
+        <div class="flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4 text-better-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          EU-regulated
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4 text-better-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          Bank-level encryption
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4 text-better-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          Withdraw anytime
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- FOOTER: Minimal one-liner -->
+  <!-- ============================================ -->
+  <footer class="py-8 border-t border-slate-100">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-md bg-better-600 flex items-center justify-center">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </div>
+        <span class="font-display font-bold text-slate-850 text-sm">BETTER</span>
+      </div>
+      <p class="text-sm text-slate-400">Your money should work as hard as you do.</p>
+      <p class="text-sm text-slate-400">&copy; 2026 BETTER &middot; Built at AI Lab</p>
+    </div>
+  </footer>
+
+
+  <!-- FlyonUI JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flyonui@2.4.1/flyonui.js"></script>
+
+  <!-- Interactions -->
+  <script>
+    // Scroll-triggered animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+    // Counter animation for hero stats
+    function animateCounter(el) {
+      const target = parseFloat(el.dataset.count);
+      const duration = 1500;
+      const start = performance.now();
+      const isDecimal = target % 1 !== 0;
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * target;
+        el.textContent = isDecimal ? current.toFixed(1) : Math.round(current);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // Observe counter elements
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter-value').forEach(el => counterObserver.observe(el));
+
+    // Nav background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        nav.classList.add('shadow-xl', 'shadow-black/[0.05]');
+      } else {
+        nav.classList.remove('shadow-xl', 'shadow-black/[0.05]');
+      }
+    });
+  </script>
+
+</body>
+</html>
